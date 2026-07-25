@@ -1,0 +1,95 @@
+{
+  "county_commissioner": {
+    "title": "County Commissioner",
+    "controls": [
+      "County roads and public works outside city limits",
+      "Land use and zoning for unincorporated areas",
+      "County sheriff's office budget and oversight",
+      "Local health department and county-run social services",
+      "County property tax levies (within state limits)"
+    ],
+    "does_not_control": [
+      "City police, roads, or zoning inside incorporated cities",
+      "School curriculum or funding (that's the school board / state)",
+      "State or federal law"
+    ]
+  },
+  "city_councilor": {
+    "title": "City Councilor",
+    "controls": [
+      "City ordinances (noise, parking, local business rules)",
+      "City budget: police, fire, parks, local roads, water/sewer",
+      "Local zoning and development approval inside city limits",
+      "Setting local property tax rates within city boundaries"
+    ],
+    "does_not_control": [
+      "County roads or unincorporated land outside the city",
+      "State highways",
+      "School funding or curriculum"
+    ]
+  },
+  "school_board_member": {
+    "title": "School Board Member",
+    "controls": [
+      "District budget and how per-student funding is spent",
+      "Hiring/firing the superintendent",
+      "District-level policy (not state-mandated curriculum)",
+      "Approving new schools, boundaries, and bond measures"
+    ],
+    "does_not_control": [
+      "State-mandated graduation requirements or standardized testing rules",
+      "Teacher licensing (state board of education)",
+      "Federal education funding rules (Title I, IDEA, etc.)"
+    ]
+  },
+  "state_representative": {
+    "title": "State Representative (lower chamber)",
+    "controls": [
+      "State laws and budget (their chamber's half of the legislature)",
+      "State tax policy",
+      "Oversight of state agencies (DMV, state police, etc.)",
+      "Redistricting (with the state senate)"
+    ],
+    "does_not_control": [
+      "Federal law",
+      "City or county ordinances",
+      "Individual school district decisions"
+    ]
+  },
+  "state_senator": {
+    "title": "State Senator (upper chamber)",
+    "controls": [
+      "Same general powers as state reps, plus confirming governor's appointments in most states",
+      "State budget (their chamber's half)",
+      "State tax and regulatory policy"
+    ],
+    "does_not_control": [
+      "Federal law",
+      "Local ordinances"
+    ]
+  },
+  "us_house_rep": {
+    "title": "U.S. House Representative",
+    "controls": [
+      "Federal law (with the Senate and President)",
+      "Federal budget - House originates spending bills",
+      "Represents their district's specific interests in Congress"
+    ],
+    "does_not_control": [
+      "State or local law",
+      "Judicial appointments (Senate only)"
+    ]
+  },
+  "us_senator": {
+    "title": "U.S. Senator",
+    "controls": [
+      "Federal law (with the House and President)",
+      "Confirms federal judges, cabinet members, and other appointments",
+      "Ratifies treaties"
+    ],
+    "does_not_control": [
+      "State or local law",
+      "Day-to-day federal agency operations"
+    ]
+  }
+}

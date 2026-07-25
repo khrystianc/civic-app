@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Who Represents Me</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
+    h1 { font-size: 1.6rem; }
+    input { width: 70%; padding: 10px; font-size: 1rem; }
+    button { padding: 10px 16px; font-size: 1rem; cursor: pointer; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 12px 0; }
+    .label { font-size: 0.8rem; text-transform: uppercase; color: #666; letter-spacing: 0.05em; }
+    .error { color: #b00020; }
+  </style>
+</head>
+<body>
+  <h1>Who represents me?</h1>
+  <p>Enter your address to see who represents you and what they actually control — no spin, just the facts.</p>
+  <input id="address" type="text" placeholder="123 Main St, Scappoose, OR">
+  <button onclick="doLookup()">Look up</button>
+  <div id="results"></div>
+
+  <script>
+    async function doLookup() {
+      const address = document.getElementById('address').value;
+      const resultsEl = document.getElementById('results');
+      resultsEl.innerHTML = '<p>Looking up...</p>';
+
+      try {
+        const res = await fetch(`/api/lookup?address=${encodeURIComponent(address)}`);
+        const data = await res.json();
+
+        if (data.error) {
+          resultsEl.innerHTML = `<p class="error">${data.error}</p>`;
+          return;
+        }
+
+        let html = `<div class="card"><div class="label">Matched address</div>${data.address}</div>`;
+
+        if (data.federal.senators) {
+          html += `<div class="card"><div class="label">US Senators</div>`;
+          data.federal.senators.forEach(s => html += `${s.name} (${s.party}) — <a href="${s.site}" target="_blank">${s.site}</a><br>`);
+          html += `</div>`;
+        }
+
+        if (data.federal.house_rep) {
+          html += `<div class="card"><div class="label">US House Rep (District ${data.congressional_district})</div>${data.federal.house_rep.name}</div>`;
+        }
+
+        if (data.state_legislators && data.state_legislators.length) {
+          html += `<div class="card"><div class="label">State Legislators</div>`;
+          data.state_legislators.forEach(l => html += `${l.title || l.chamber}: ${l.name} (${l.party})<br>`);
+          html += `</div>`;
+        }
+
+        if (data.local.note) {
+          html += `<div class="card"><div class="label">Local</div>${data.local.note}</div>`;
+        } else if (data.local.county_commissioners) {
+          html += `<div class="card"><div class="label">County Commissioners</div>`;
+          data.local.county_commissioners.forEach(c => html += `${c.name} — ${c.position}<br>`);
+          html += `</div>`;
+        }
+
+        resultsEl.innerHTML = html;
+      } catch (e) {
+        resultsEl.innerHTML = `<p class="error">Something went wrong: ${e}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>

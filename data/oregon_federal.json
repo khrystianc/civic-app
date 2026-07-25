@@ -1,0 +1,16 @@
+{
+  "_comment": "Update after each election cycle. Source: house.gov / senate.gov member directories.",
+  "senators": [
+    {"name": "Ron Wyden", "party": "D", "site": "https://www.wyden.senate.gov", "note": "in office since 1996"},
+    {"name": "Jeff Merkley", "party": "D", "site": "https://www.merkley.senate.gov", "note": "seeking 4th term, 2026 election pending"}
+  ],
+  "house_districts": {
+    "_todo": "Verify each district's current rep directly against house.gov before launch - not confirmed by search yet.",
+    "OR-1": {"name": "REPLACE_ME", "party": "REPLACE_ME", "site": ""},
+    "OR-2": {"name": "REPLACE_ME", "party": "REPLACE_ME", "site": ""},
+    "OR-3": {"name": "REPLACE_ME", "party": "REPLACE_ME", "site": ""},
+    "OR-4": {"name": "REPLACE_ME", "party": "REPLACE_ME", "site": ""},
+    "OR-5": {"name": "REPLACE_ME", "party": "REPLACE_ME", "site": ""},
+    "OR-6": {"name": "REPLACE_ME", "party": "REPLACE_ME", "site": ""}
+  }
+}

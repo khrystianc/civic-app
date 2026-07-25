@@ -1,0 +1,27 @@
+{
+  "_comment": "Manually researched pilot data. Verify against columbiacountyor.gov before launch. Expand city-by-city as you add coverage.",
+  "county": "Columbia County",
+  "county_commissioners": [
+    {"name": "REPLACE_ME", "position": "Chair", "site": "https://www.columbiacountyor.gov"},
+    {"name": "REPLACE_ME", "position": "Commissioner", "site": ""},
+    {"name": "REPLACE_ME", "position": "Commissioner", "site": ""}
+  ],
+  "cities": {
+    "Scappoose": {
+      "city_council": [],
+      "mayor": {"name": "REPLACE_ME", "site": ""},
+      "site": "https://www.cityofscappoose.org"
+    },
+    "St. Helens": {
+      "city_council": [],
+      "mayor": {"name": "REPLACE_ME", "site": ""},
+      "site": "https://www.sthelensoregon.gov"
+    }
+  },
+  "school_districts": {
+    "Scappoose School District": {
+      "board_members": [],
+      "site": "https://www.scappooseschools.org"
+    }
+  }
+}
