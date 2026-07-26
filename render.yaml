@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: civic-app
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: civic-app-db
+          property: connectionString
+      - key: STRIPE_SECRET_KEY
+        sync: false  # set manually in Render dashboard - don't put real keys in this file
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: ADSENSE_PUBLISHER_ID
+        sync: false
+
+databases:
+  - name: civic-app-db
+    plan: free  # NOTE: Render's free Postgres auto-deletes 30 days after creation.
+                # Fine for testing/early launch; set a reminder to either
+                # upgrade to a paid instance or export/reimport data before
+                # day 30 if you want to keep it around longer.
