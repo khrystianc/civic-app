@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sign Up - Who Represents Me</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 400px; margin: 80px auto; padding: 0 16px; }
+    input { width: 100%; padding: 10px; margin: 8px 0; font-size: 1rem; box-sizing: border-box; }
+    button { width: 100%; padding: 10px; font-size: 1rem; cursor: pointer; }
+    .error { color: #b00020; }
+  </style>
+</head>
+<body>
+  <h1>Sign Up</h1>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="POST">
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required minlength="8">
+    <button type="submit">Sign Up</button>
+  </form>
+  <p><a href="/login">Already have an account? Log in</a></p>
+</body>
+</html>
