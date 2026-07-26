@@ -14,6 +14,7 @@
   </style>
 </head>
 <body>
+  <div id="auth-bar" style="text-align:right; font-size:0.85rem; margin-bottom:8px;"></div>
   <h1>Who represents me?</h1>
   <p>Enter your address to see who represents you and what they actually control — no spin, just the facts.</p>
   <input id="address" type="text" placeholder="123 Main St, Scappoose, OR">
@@ -21,6 +22,22 @@
   <div id="results"></div>
 
   <script>
+    async function loadAuthBar() {
+      const res = await fetch('/api/me');
+      const data = await res.json();
+      const bar = document.getElementById('auth-bar');
+      if (!data.authenticated) {
+        bar.innerHTML = '<a href="/login">Log in</a> · <a href="/signup">Sign up</a>';
+        return;
+      }
+      if (data.subscribed) {
+        bar.innerHTML = `${data.email} (subscribed) · <form action="/billing/portal" method="POST" style="display:inline"><button type="submit" style="border:none;background:none;color:#06c;cursor:pointer;padding:0;font:inherit;">Manage subscription</button></form> · <a href="/logout">Log out</a>`;
+      } else {
+        bar.innerHTML = `${data.email} · <form action="/billing/checkout" method="POST" style="display:inline"><button type="submit" style="border:none;background:none;color:#06c;cursor:pointer;padding:0;font:inherit;">Subscribe</button></form> · <a href="/logout">Log out</a>`;
+      }
+    }
+    loadAuthBar();
+
     async function doLookup() {
       const address = document.getElementById('address').value;
       const resultsEl = document.getElementById('results');
