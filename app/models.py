@@ -10,17 +10,13 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
-    # Stripe subscription state - kept minimal, Stripe is the source of truth
-    stripe_customer_id = db.Column(db.String(255), nullable=True)
-    stripe_subscription_id = db.Column(db.String(255), nullable=True)
-    subscription_status = db.Column(db.String(50), default="free")  # free | active | past_due | canceled
+    # No feature gating on this - donations are pay-what-you-want and
+    # don't unlock anything. This is just for an optional "supporter"
+    # badge later if you want one.
+    total_donated_cents = db.Column(db.Integer, default=0)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-
-    @property
-    def is_subscribed(self):
-        return self.subscription_status == "active"

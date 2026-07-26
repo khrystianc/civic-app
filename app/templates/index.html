@@ -12,6 +12,13 @@
     .label { font-size: 0.8rem; text-transform: uppercase; color: #666; letter-spacing: 0.05em; }
     .error { color: #b00020; }
   </style>
+  {% if adsense_publisher_id %}
+  <!-- Google AdSense - auto ads. Requires a real publisher ID and an
+       approved AdSense account (manual application, Google reviews the
+       site - can't be automated). Set ADSENSE_PUBLISHER_ID env var once
+       you have one. -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ adsense_publisher_id }}" crossorigin="anonymous"></script>
+  {% endif %}
 </head>
 <body>
   <div id="auth-bar" style="text-align:right; font-size:0.85rem; margin-bottom:8px;"></div>
@@ -21,20 +28,39 @@
   <button onclick="doLookup()">Look up</button>
   <div id="results"></div>
 
+  {% if adsense_publisher_id %}
+  <!-- Placeholder ad slot - replace data-ad-slot with a real slot ID
+       from your AdSense dashboard once approved. Placed below results,
+       not above, so it never delays or competes with the actual civic
+       info the visitor came for. -->
+  <div style="margin-top:24px;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="{{ adsense_publisher_id }}"
+         data-ad-slot="REPLACE_WITH_REAL_SLOT_ID"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  {% endif %}
+
   <script>
     async function loadAuthBar() {
       const res = await fetch('/api/me');
       const data = await res.json();
       const bar = document.getElementById('auth-bar');
       if (!data.authenticated) {
-        bar.innerHTML = '<a href="/login">Log in</a> · <a href="/signup">Sign up</a>';
+        bar.innerHTML = '<a href="/login">Log in</a> · <a href="/signup">Sign up</a> · ' + donateWidget();
         return;
       }
-      if (data.subscribed) {
-        bar.innerHTML = `${data.email} (subscribed) · <form action="/billing/portal" method="POST" style="display:inline"><button type="submit" style="border:none;background:none;color:#06c;cursor:pointer;padding:0;font:inherit;">Manage subscription</button></form> · <a href="/logout">Log out</a>`;
-      } else {
-        bar.innerHTML = `${data.email} · <form action="/billing/checkout" method="POST" style="display:inline"><button type="submit" style="border:none;background:none;color:#06c;cursor:pointer;padding:0;font:inherit;">Subscribe</button></form> · <a href="/logout">Log out</a>`;
-      }
+      bar.innerHTML = `${data.email} · <a href="/logout">Log out</a> · ` + donateWidget();
+    }
+
+    function donateWidget() {
+      return `<form action="/billing/donate" method="POST" style="display:inline">
+        <input type="number" name="amount" min="1" step="1" value="5" style="width:50px; padding:2px;">
+        <button type="submit" style="border:none;background:none;color:#06c;cursor:pointer;padding:0;font:inherit;">Support this project</button>
+      </form>`;
     }
     loadAuthBar();
 

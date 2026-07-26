@@ -21,7 +21,10 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", "sqlite:///civic_app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # Stripe - see app/routes/billing.py for what each is used for
+    # Stripe - one-time pay-what-you-want donations, no preset Price needed
+    # (amount is set dynamically per checkout, see app/routes/billing.py)
     STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
-    STRIPE_PRICE_ID = os.environ.get("STRIPE_PRICE_ID", "")
     STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
+
+    # Google AdSense - see templates/index.html ad slots
+    ADSENSE_PUBLISHER_ID = os.environ.get("ADSENSE_PUBLISHER_ID", "")

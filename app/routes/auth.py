@@ -64,5 +64,4 @@ def me():
     return jsonify({
         "authenticated": True,
         "email": current_user.email,
-        "subscribed": current_user.is_subscribed,
     })
